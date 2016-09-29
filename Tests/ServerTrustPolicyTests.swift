@@ -24,6 +24,7 @@ import Alamofire
 import Foundation
 import XCTest
 
+
 private struct TestCertificates {
     // Root Certificates
     static let RootCA = TestCertificates.certificateWithFileName("alamofire-root-ca")
@@ -203,12 +204,12 @@ class ServerTrustPolicyTestCase: BaseTestCase {
     func trustIsValid(trust: SecTrust) -> Bool {
         var isValid = false
 
-        var result = SecTrustResultType(kSecTrustResultInvalid)
+        var result = SecTrustResultType.Invalid
         let status = SecTrustEvaluate(trust, &result)
 
         if status == errSecSuccess {
-            let unspecified = SecTrustResultType(kSecTrustResultUnspecified)
-            let proceed = SecTrustResultType(kSecTrustResultProceed)
+            let unspecified = SecTrustResultType.Unspecified
+            let proceed = SecTrustResultType.Proceed
 
             isValid = result == unspecified || result == proceed
         }
